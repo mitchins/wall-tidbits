@@ -25,8 +25,8 @@ def parse_onthisday(payload: dict, day: date, family: bool = True) -> dict | Non
         return None
     candidates = _candidates(items, family)
     if not candidates:
-        candidates = _candidates(items, family=False)
-    if not candidates:
+        if family:
+            return None
         candidates = [_as_record(item) for item in items if _as_record(item)]
     if not candidates:
         return None

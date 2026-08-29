@@ -13,6 +13,11 @@ def test_loads_bundled_corpus():
     assert all(r["question"] and r["answer"] for r in riddles)
 
 
+def test_loads_packaged_corpus():
+    riddles = load_riddles()
+    assert len(riddles) >= 20
+
+
 def test_pick_is_deterministic_per_day_and_seed():
     riddles = load_riddles(DATA / "riddles.json")
     first = pick_riddle(riddles, DAY, "seed-a")

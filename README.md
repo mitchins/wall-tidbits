@@ -35,7 +35,8 @@ The display endpoints are:
 
 The service writes its cache under `data/cache`. The cache is intentionally
 ignored by Git and survives container restarts through the `./data:/data`
-volume.
+volume. If the host data directory is not owned by UID/GID 1000, set
+`WALL_TIDBITS_UID` and `WALL_TIDBITS_GID` in `.env` to match its owner.
 
 ## LAN deployment from GHCR
 

@@ -105,6 +105,7 @@ def test_token_routes_disabled_without_token(settings):
 def test_rejects_bad_and_future_dates(client):
     assert client.get("/v1/daily", params={"date": "not-a-date"}).status_code == 400
     assert client.get("/v1/daily", params={"date": "2099-01-01"}).status_code == 400
+    assert client.get("/v1/daily", params={"date": "1900-01-01"}).status_code == 400
 
 
 @respx.mock

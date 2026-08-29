@@ -1,5 +1,6 @@
 import json
 from datetime import date
+from importlib.resources import files
 from pathlib import Path
 
 from wall_tidbits.normalize import budget, stable_index
@@ -8,8 +9,9 @@ QUESTION_BUDGET = 180
 ANSWER_BUDGET = 80
 
 
-def load_riddles(path: Path) -> list[dict]:
-    with open(path, encoding="utf-8") as fh:
+def load_riddles(path: Path | None = None) -> list[dict]:
+    source = path or files("wall_tidbits").joinpath("riddles.json")
+    with source.open(encoding="utf-8") as fh:
         data = json.load(fh)
     return [r for r in data if r.get("question") and r.get("answer")]
 

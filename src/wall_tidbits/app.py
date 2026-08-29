@@ -1,7 +1,7 @@
 import asyncio
 import secrets
 from contextlib import asynccontextmanager
-from datetime import date
+from datetime import date, timedelta
 from zoneinfo import ZoneInfo
 
 import httpx
@@ -99,8 +99,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             day = parse_date(value, settings.timezone)
         except ValueError as exc:
             raise HTTPException(status_code=400, detail="date must be YYYY-MM-DD") from exc
-        if day > today_in(settings.timezone):
+        today = today_in(settings.timezone)
+        if day > today:
             raise HTTPException(status_code=400, detail="date is in the future")
+        if day < today - timedelta(days=settings.retention_days):
+            raise HTTPException(status_code=400, detail="date is outside the retention window")
         return day
 
     @app.get("/healthz")

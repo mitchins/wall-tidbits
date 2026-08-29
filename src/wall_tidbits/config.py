@@ -11,7 +11,7 @@ class Settings:
     timezone: str = DEFAULT_TIMEZONE
     contact_email: str = ""
     cache_dir: Path = Path("data/cache")
-    riddles_path: Path = Path("data/riddles.json")
+    riddles_path: Path | None = None
     public_token: str = ""
     retention_days: int = 30
     riddle_seed: str = "wall-tidbits"
@@ -34,7 +34,9 @@ def load_settings() -> Settings:
         timezone=os.environ.get("TIMEZONE", DEFAULT_TIMEZONE),
         contact_email=os.environ.get("CONTACT_EMAIL", ""),
         cache_dir=Path(os.environ.get("CACHE_DIR", "data/cache")),
-        riddles_path=Path(os.environ.get("RIDDLES_PATH", "data/riddles.json")),
+        riddles_path=(
+            Path(value) if (value := os.environ.get("RIDDLES_PATH")) else None
+        ),
         public_token=os.environ.get("PUBLIC_TOKEN", ""),
         retention_days=int(os.environ.get("RETENTION_DAYS", "30")),
         riddle_seed=os.environ.get("RIDDLE_SEED", "wall-tidbits"),

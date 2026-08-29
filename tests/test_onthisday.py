@@ -26,15 +26,18 @@ def test_family_filter_can_be_disabled():
     assert unfiltered is not None
 
 
-def test_relaxed_fallback_when_all_filtered():
+def test_family_filter_does_not_fallback_to_blocked_content():
     payload = {
         "selected": [
             {"text": "A soldier was killed in a skirmish on this day.", "pages": [], "year": 1914},
         ]
     }
     result = parse_onthisday(payload, DAY, family=True)
-    assert result is not None
-    assert "killed" in result["text"]
+    assert result is None
+
+    unfiltered = parse_onthisday(payload, DAY, family=False)
+    assert unfiltered is not None
+    assert "killed" in unfiltered["text"]
 
 
 def test_returns_none_on_empty_payload():

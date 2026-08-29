@@ -2,8 +2,8 @@ import hashlib
 import html
 import re
 
-STYLE_RE = re.compile(r"<style.*?</style>", re.S)
-SCRIPT_RE = re.compile(r"<script.*?</script>", re.S)
+STYLE_RE = re.compile(r"<style.*?</style>", re.S | re.I)
+SCRIPT_RE = re.compile(r"<script.*?</script>", re.S | re.I)
 TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
 WIKILINK_RE = re.compile(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]")
@@ -28,7 +28,7 @@ FAMILY_BLOCKLIST = (
 def strip_html(raw: str) -> str:
     text = STYLE_RE.sub(" ", raw)
     text = SCRIPT_RE.sub(" ", text)
-    text = re.sub(r"<br\s*/?>", " ", text)
+    text = re.sub(r"<br\s*/?>", " ", text, flags=re.I)
     text = TAG_RE.sub("", text)
     text = html.unescape(text)
     return tidy_ws(text)
@@ -64,7 +64,7 @@ def budget(text: str, limit: int) -> str:
             return cut[: idx + 1].strip()
     idx = cut.rfind(" ")
     trimmed = cut[:idx].rstrip(" ,;:-") if idx > 0 else cut
-    return trimmed + "\u2026"
+    return trimmed[: limit - 1] + "\u2026"
 
 
 def stable_index(seed: str, modulo: int) -> int:
