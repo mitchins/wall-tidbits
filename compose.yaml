@@ -1,0 +1,16 @@
+services:
+  gateway:
+    image: ${WALL_TIDBITS_IMAGE:-wall-tidbits:local}
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:8080"
+    env_file:
+      - .env
+    environment:
+      CACHE_DIR: /data/cache
+      RIDDLES_PATH: /data/riddles.json
+      PORT: "8080"
+    user: "${WALL_TIDBITS_UID:-1000}:${WALL_TIDBITS_GID:-1000}"
+    volumes:
+      - ./data:/data
