@@ -1,0 +1,51 @@
+{
+ "selected": [
+  {
+   "text": "The NASA space probe Voyager 1 became the first man-made object to enter interstellar space.",
+   "pages": [
+    {
+     "title": "NASA",
+     "content_urls": {
+      "desktop": {
+       "page": "https://en.wikipedia.org/wiki/NASA"
+      }
+     }
+    }
+   ],
+   "year": 2012
+  },
+  {
+   "text": "A soldier was killed in a border skirmish that led to a prolonged conflict between the two neighbouring states over the disputed territory.",
+   "pages": [
+    {
+     "title": "War",
+     "content_urls": {
+      "desktop": {
+       "page": "https://en.wikipedia.org/wiki/War"
+      }
+     }
+    }
+   ],
+   "year": 1914
+  },
+  {
+   "text": "Short.",
+   "pages": [],
+   "year": 1900
+  },
+  {
+   "text": "The first steam-powered railway line opened, carrying passengers between the two towns and transforming travel forever.",
+   "pages": [
+    {
+     "title": "Railway",
+     "content_urls": {
+      "desktop": {
+       "page": "https://en.wikipedia.org/wiki/Railway"
+      }
+     }
+    }
+   ],
+   "year": 1830
+  }
+ ]
+}
