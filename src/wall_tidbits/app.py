@@ -152,7 +152,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if asset == "display.json":
             return await display_json(date)
         if asset == "display.html":
-            return await display_html(date)
+            return HTMLResponse(content=await display_html(date))
         return await credits(date)
 
     return app

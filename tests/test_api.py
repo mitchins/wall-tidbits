@@ -87,6 +87,7 @@ def test_token_routes_serve_and_reject(client):
 
     html_resp = client.get("/e/t0ken123/display.html", params={"date": DAY})
     assert html_resp.status_code == 200
+    assert html_resp.headers["content-type"].startswith("text/html")
 
     assert client.get("/e/wrongtoken/daily.json", params={"date": DAY}).status_code == 404
     assert client.get("/e/t0ken123/bogus.json", params={"date": DAY}).status_code == 404
